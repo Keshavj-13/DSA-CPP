@@ -1,0 +1,690 @@
+========== Question 1 ==========
+
+--- Code ---
+#include <iostream>
+using namespace std;
+
+#define MAX 100
+
+class Queue {
+    int arr[MAX];
+    int front, rear;
+public:
+    Queue() { front = -1; rear = -1; }
+
+    bool isEmpty() {
+        return (front == -1 || front > rear);
+    }
+
+    bool isFull() {
+        return rear == MAX - 1;
+    }
+
+    void enqueue(int x) {
+        if (isFull()) {
+            cout << "Queue Overflow!\n";
+            return;
+        }
+        if (front == -1) front = 0;
+        arr[++rear] = x;
+        cout << x << " enqueued to queue.\n";
+    }
+
+    void dequeue() {
+        if (isEmpty()) {
+            cout << "Queue Underflow!\n";
+            return;
+        }
+        cout << arr[front++] << " dequeued from queue.\n";
+        if (front > rear) front = rear = -1; // Reset if empty
+    }
+
+    void peek() {
+        if (isEmpty()) {
+            cout << "Queue is empty.\n";
+            return;
+        }
+        cout << "Front element: " << arr[front] << endl;
+    }
+
+    void display() {
+        if (isEmpty()) {
+            cout << "Queue is empty.\n";
+            return;
+        }
+        cout << "Queue elements: ";
+        for (int i = front; i <= rear; i++)
+            cout << arr[i] << " ";
+        cout << endl;
+    }
+};
+
+int main() {
+    Queue q;
+    int choice, value;
+    do {
+        cout << "\n--- Queue Menu ---\n";
+        cout << "1. Enqueue\n2. Dequeue\n3. isEmpty\n4. isFull\n5. Display\n6. Peek\n0. Exit\n";
+        cout << "Enter your choice: ";
+        cin >> choice;
+        switch (choice) {
+            case 1:
+                cout << "Enter value to Enqueue: ";
+                cin >> value;
+                q.enqueue(value);
+                break;
+            case 2:
+                q.dequeue();
+                break;
+            case 3:
+                cout << (q.isEmpty() ? "Queue is empty.\n" : "Queue is not empty.\n");
+                break;
+            case 4:
+                cout << (q.isFull() ? "Queue is full.\n" : "Queue is not full.\n");
+                break;
+            case 5:
+                q.display();
+                break;
+            case 6:
+                q.peek();
+                break;
+            case 0:
+                cout << "Exiting...\n";
+                break;
+            default:
+                cout << "Invalid choice!\n";
+        }
+    } while (choice != 0);
+    return 0;
+}
+
+--- Output ---
+
+PS C:\Users\ASUS\Documents\DSA-CPP> ./a
+
+--- Queue Menu ---
+1. Enqueue
+2. Dequeue
+3. isEmpty
+4. isFull
+5. Display
+6. Peek
+0. Exit
+Enter your choice: 1
+Enter value to Enqueue: 2
+2 enqueued to queue.
+
+--- Queue Menu ---
+1. Enqueue
+2. Dequeue
+3. isEmpty
+4. isFull
+5. Display
+6. Peek
+0. Exit
+Enter your choice: 3
+Queue is not empty.
+
+--- Queue Menu ---
+1. Enqueue
+2. Dequeue
+3. isEmpty
+4. isFull
+5. Display
+6. Peek
+0. Exit
+Enter your choice: 5
+Queue elements: 2 
+
+--- Queue Menu ---
+1. Enqueue
+2. Dequeue
+3. isEmpty
+4. isFull
+5. Display
+6. Peek
+0. Exit
+Enter your choice: 6
+Front element: 2
+
+--- Queue Menu ---
+1. Enqueue
+2. Dequeue
+3. isEmpty
+4. isFull
+5. Display
+6. Peek
+0. Exit
+Enter your choice: 2
+2 dequeued from queue.
+
+--- Queue Menu ---
+1. Enqueue
+2. Dequeue
+3. isEmpty
+4. isFull
+5. Display
+6. Peek
+0. Exit
+Enter your choice: 0
+Exiting...
+
+========== Question 2 ==========
+
+--- Code ---
+#include <iostream>
+using namespace std;
+
+#define MAX 100
+
+class Circular_Queue {
+    int arr[MAX];
+    int front, rear;
+public:
+    Circular_Queue() { front = -1; rear = -1; }
+
+    bool isEmpty() {
+        return front == -1;
+    }
+
+    bool isFull() {
+        return ((rear + 1) % MAX) == front;
+    }
+
+    void enqueue(int x) {
+        if (isFull()) {
+            cout << "Circular_Queue Overflow!\n";
+            return;
+        }
+        if (isEmpty()) {
+            front = rear = 0;
+        } else {
+            rear = (rear + 1) % MAX;
+        }
+        arr[rear] = x;
+        cout << x << " enqueued to Circular_Queue.\n";
+    }
+
+    void dequeue() {
+        if (isEmpty()) {
+            cout << "Circular_Queue Underflow!\n";
+            return;
+        }
+        cout << arr[front] << " dequeued from Circular_Queue.\n";
+        if (front == rear) {
+            front = rear = -1; // Queue is now empty
+        } else {
+            front = (front + 1) % MAX;
+        }
+    }
+
+    void peek() {
+        if (isEmpty()) {
+            cout << "Circular_Queue is empty.\n";
+            return;
+        }
+        cout << "Front element: " << arr[front] << endl;
+    }
+
+    void display() {
+        if (isEmpty()) {
+            cout << "Circular_Queue is empty.\n";
+            return;
+        }
+        cout << "Circular_Queue elements: ";
+        int i = front;
+        while (true) {
+            cout << arr[i] << " ";
+            if (i == rear) break;
+            i = (i + 1) % MAX;
+        }
+        cout << endl;
+    }
+};
+
+int main() {
+    Circular_Queue q;
+    int choice, value;
+    do {
+        cout << "\n--- Circular_Queue Menu ---\n";
+        cout << "1. enqueue\n2. dequeue\n3. isEmpty\n4. isFull\n5. Display\n6. Peek\n0. Exit\n";
+        cout << "Enter your choice: ";
+        cin >> choice;
+        switch (choice) {
+            case 1:
+                cout << "Enter value to enqueue: ";
+                cin >> value;
+                q.enqueue(value);
+                break;
+            case 2:
+                q.dequeue();
+                break;
+            case 3:
+                cout << (q.isEmpty() ? "Circular_Queue is empty.\n" : "Circular_Queue is not empty.\n");
+                break;
+            case 4:
+                cout << (q.isFull() ? "Circular_Queue is full.\n" : "Circular_Queue is not full.\n");
+                break;
+            case 5:
+                q.display();
+                break;
+            case 6:
+                q.peek();
+                break;
+            case 0:
+                cout << "Exiting...\n";
+                break;
+            default:
+                cout << "Invalid choice!\n";
+        }
+    } while (choice != 0);
+    return 0;
+}
+
+--- Output ---
+
+PS C:\Users\ASUS\Documents\DSA-CPP> ./a
+
+--- Circular_Queue Menu ---
+1. enqueue
+2. dequeue
+3. isEmpty
+4. isFull
+5. Display
+6. Peek
+0. Exit
+Enter your choice: 1
+Enter value to enqueue: 2
+2 enqueued to Circular_Queue.
+
+--- Circular_Queue Menu ---
+1. enqueue
+2. dequeue
+3. isEmpty
+4. isFull
+5. Display
+6. Peek
+0. Exit
+Enter your choice: 2
+2 dequeued from Circular_Queue.
+
+--- Circular_Queue Menu ---
+1. enqueue
+2. dequeue
+3. isEmpty
+4. isFull
+5. Display
+6. Peek
+0. Exit
+Enter your choice: 0
+Exiting...
+PS C:\Users\ASUS\Documents\DSA-CPP> 
+
+========== Question 3 ==========
+
+--- Code ---
+#include <iostream>
+using namespace std;
+
+#define MAX 100
+
+class Circular_Queue {
+    int arr[MAX];
+    int front, rear;
+public:
+    Circular_Queue() { front = -1; rear = -1; }
+
+    bool isEmpty() {
+        return front == -1;
+    }
+
+    bool isFull() {
+        return ((rear + 1) % MAX) == front;
+    }
+
+    void enqueue(int x) {
+        if (isFull()) {
+            cout << "Circular_Queue Overflow!\n";
+            return;
+        }
+        if (isEmpty()) {
+            front = rear = 0;
+        } else {
+            rear = (rear + 1) % MAX;
+        }
+        arr[rear] = x;
+    }
+
+    int dequeue() {
+        if (isEmpty()) {
+            cout << "Circular_Queue Underflow!\n";
+            return -1;
+        }
+        int value = arr[front];
+        if (front == rear) {
+            front = rear = -1; // Queue is now empty
+        } else {
+            front = (front + 1) % MAX;
+        }
+        return value;
+    }
+
+    void peek() {
+        if (isEmpty()) {
+            cout << "Circular_Queue is empty.\n";
+            return;
+        }
+        cout << "Front element: " << arr[front] << endl;
+    }
+
+    void display() {
+        if (isEmpty()) {
+            cout << "Circular_Queue is empty.\n";
+            return;
+        }
+        cout << "Circular_Queue elements: ";
+        int i = front;
+        while (true) {
+            cout << arr[i] << " ";
+            if (i == rear) break;
+            i = (i + 1) % MAX;
+        }
+        cout << endl;
+    }
+};
+
+int main() {
+    Circular_Queue q,a,b;
+    cout << "Enter the length of the queue (max 100): ";
+    int n;
+    cin >> n;
+    cout << "Enter " << n << " elements:\n";
+    for(int i=0;i<n;i++){
+        int value;
+        cin >> value;
+        q.enqueue(value);
+    }
+    q.display();
+    for(int i=0;i<n/2;i++){
+        int value;
+        value = q.dequeue();
+        a.enqueue(value);
+    }
+    for(int i=n/2;i<n;i++){
+        int value;
+        value = q.dequeue();
+        b.enqueue(value);
+    }
+    for(int i=0;i<n;i++){
+        if(i%2==0){
+            int value;
+            value = a.dequeue();
+            q.enqueue(value);
+        }
+        else{
+            int value;
+            value = b.dequeue();
+            q.enqueue(value);
+        }
+    }
+    q.display();
+    return 0;
+}
+
+--- Output ---
+
+PS C:\Users\ASUS\Documents\DSA-CPP> ./a
+Enter the length of the queue (max 100): 4
+Enter 4 elements:
+1
+4
+2
+6
+Circular_Queue elements: 1 4 2 6 
+Circular_Queue elements: 1 2 4 6
+PS C:\Users\ASUS\Documents\DSA-CPP> 
+
+========== Question 4 ==========
+
+--- Code ---
+#include <iostream>
+using namespace std;
+
+#define MAX 100
+
+class Circular_Queue {
+    char arr[MAX];
+    int front, rear;
+public:
+    Circular_Queue() { front = -1; rear = -1; }
+
+    bool isEmpty() {
+        return front == -1;
+    }
+
+    bool isFull() {
+        return ((rear + 1) % MAX) == front;
+    }
+
+    void enqueue(char x) {
+        if (isFull()) {
+            cout << "Circular_Queue Overflow!\n";
+            return;
+        }
+        if (isEmpty()) {
+            front = rear = 0;
+        } else {
+            rear = (rear + 1) % MAX;
+        }
+        arr[rear] = x;
+    }
+
+    char dequeue() {
+        if (isEmpty()) {
+            cout << "Circular_Queue Underflow!\n";
+            return '\0';
+        }
+        char value = arr[front];
+        if (front == rear) {
+            front = rear = -1; // Queue is now empty
+        } else {
+            front = (front + 1) % MAX;
+        }
+        return value;
+    }
+
+    char peek() {
+        if (isEmpty()) {
+            cout << "Circular_Queue is empty.\n";
+            return '\0';
+        }
+        return arr[front];
+    }
+
+    void display() {
+        if (isEmpty()) {
+            cout << "Circular_Queue is empty.\n";
+            return;
+        }
+        cout << "Circular_Queue elements: ";
+        int i = front;
+        while (true) {
+            cout << arr[i] << " ";
+            if (i == rear) break;
+            i = (i + 1) % MAX;
+        }
+        cout << endl;
+    }
+};
+
+int main() {
+    Circular_Queue q;
+    int char_count[256] = {0};
+    cout << "Enter the length of the queue (max 100): ";
+    int n;
+    cin >> n;
+    cout << "Enter " << n << " elements:\n";
+    for(int i=0;i<n;i++){
+        char value;
+        cin >> value;
+        char_count[(int)value]++;
+        q.enqueue(value);
+        while(!q.isEmpty()){
+            if (char_count[(int)q.peek()] > 1)
+                q.dequeue();
+            else {
+                cout << q.peek() << " ";
+                break;
+            }
+        }
+        if(q.isEmpty()){
+            cout << "-1";
+        }
+    }
+    return 0;
+}
+
+--- Output ---
+
+PS C:\Users\ASUS\Documents\DSA-CPP> ./a
+Enter the length of the queue (max 100): 4
+Enter 4 elements:
+1
+1 3
+1 2
+1 5
+1 
+PS C:\Users\ASUS\Documents\DSA-CPP> 
+
+========== Question 5_a ==========
+
+--- Code ---
+#include <iostream>
+#include <queue>
+using namespace std;
+
+class myStack {
+    
+    queue<int> q1, q2;
+
+public:
+    void push(int x) {
+        
+        q2.push(x);
+
+        while (!q1.empty()) {
+            q2.push(q1.front());
+            q1.pop();
+        }
+
+        swap(q1, q2);
+    }
+
+    void pop()
+    {
+        if (q1.empty())
+            return;
+        q1.pop();
+    }
+
+    int top()
+    {
+        if (q1.empty())
+            return -1;
+        return q1.front();
+    }
+
+    int size() { return q1.size(); }
+};
+
+int main() {
+    myStack st;
+    st.push(1);
+    st.push(2);
+    st.push(3);
+
+    cout << st.top() << endl;
+    st.pop();
+    cout << st.top() << endl;
+    st.pop();
+    cout << st.top() << endl;
+
+    cout << st.size() << endl;
+    return 0;
+}
+
+--- Output ---
+3
+2
+1
+1
+
+
+========== Question 5_b ==========
+
+--- Code ---
+#include <iostream>
+#include <queue>
+using namespace std;
+
+class Stack
+{
+    queue<int>q;
+public:
+    void push(int val);
+    void pop();
+    int top();
+    bool empty();
+};
+
+// Push operation
+void Stack::push(int val)
+{
+    int s = q.size();
+
+    q.push(val);
+
+    for (int i=0; i<s; i++)
+    {
+        q.push(q.front());
+
+        q.pop();
+    }
+}
+
+void Stack::pop()
+{
+    if (q.empty())
+        cout << "No elements\n";
+    else
+        q.pop();
+}
+
+int  Stack::top()
+{
+    return (q.empty())? -1 : q.front();
+}
+
+bool Stack::empty()
+{
+    return (q.empty());
+}
+
+int main()
+{
+    Stack s;
+    s.push(10);
+    s.push(20);
+    cout << s.top() << endl;
+    s.pop();
+    s.push(30);
+    s.pop();
+    cout << s.top() << endl;
+    return 0;
+}
+
+--- Output ---
+20
+10
+
+
