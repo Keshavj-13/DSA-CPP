@@ -1,5 +1,3 @@
-// LA-3_q4.cpp
-// Program to convert Infix expression to Postfix expression
 #include <iostream>
 using namespace std;
 
@@ -9,7 +7,6 @@ int precedence(char op) {
     if (op == '+' || op == '-') return 1;
     return 0;
 }
-
 #define MAX 1000
 
 class CharStack {

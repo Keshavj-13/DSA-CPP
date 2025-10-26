@@ -1,5 +1,3 @@
-// LA-3_q5.cpp
-// Program to evaluate a Postfix expression
 #include <iostream>
 using namespace std;
 

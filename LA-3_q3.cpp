@@ -1,5 +1,3 @@
-// LA-3_q3.cpp
-// Program to check if an expression has balanced parentheses
 #include <iostream>
 using namespace std;
 
