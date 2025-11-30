@@ -11,23 +11,10 @@ struct Node {
 };
 
 int main() {
-    ios::sync_with_stdio(false);
-    cin.tie(nullptr);
-
-    // Input format (optional): n values... pos
-    // where pos is 0-based index of node to which tail connects (-1 for no cycle)
     int n;
     vector<int> vals;
-    int pos = -1;
-    if (cin >> n) {
-        vals.resize(n);
-        for (int i = 0; i < n; ++i) cin >> vals[i];
-        if (!(cin >> pos)) pos = -1;
-    } else {
-        // sample: 1->2->3->4->2 (pos = 1)
-        vals = {1,2,3,4}; pos = 1;
-        cerr << "No input detected; using sample list 1->2->3->4 with tail connecting to index 1 (0-based).\n";
-    }
+    int pos = 1;
+    vals = {1,2,3,4}; 
 
     vector<Node*> nodes;
     for (int v : vals) nodes.push_back(new Node(v));

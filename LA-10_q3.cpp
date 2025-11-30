@@ -5,18 +5,9 @@
 using namespace std;
 
 int main() {
-    ios::sync_with_stdio(false);
-    cin.tie(nullptr);
-
     vector<int> nums;
     int n;
-    if (cin >> n) {
-        nums.resize(n);
-        for (int i = 0; i < n; ++i) cin >> nums[i];
-    } else {
-        nums = {2,3,2,4,3,2};
-        cerr << "No input detected; using sample [2,3,2,4,3,2].\n";
-    }
+    nums = {2,3,2,4,3,2};
 
     unordered_map<int,int> freq;
     vector<int> order;

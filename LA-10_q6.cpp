@@ -13,23 +13,10 @@ struct TreeNode {
 };
 
 int main() {
-    ios::sync_with_stdio(false);
-    cin.tie(nullptr);
-
-    // Input format (optional): n followed by n integers representing level-order
-    // Use -1 to indicate null nodes. Build tree as complete binary tree indices.
     int n;
     vector<int> vals;
-    if (cin >> n) {
-        vals.resize(n);
-        for (int i = 0; i < n; ++i) cin >> vals[i];
-    } else {
-        // sample tree with duplicates: values {1,2,3,4,2}
-        // Level order example: 1 2 3 4 -1 2 (interpret -1 as null)
-        vals = {1,2,3,4,-1,2};
-        n = (int)vals.size();
-        cerr << "No input detected; using sample level-order with duplicates.\n";
-    }
+    vals = {1,2,3,4,-1,2};
+    n = (int)vals.size();
 
     if (n == 0) { cout << "No Duplicates" << '\n'; return 0; }
 
